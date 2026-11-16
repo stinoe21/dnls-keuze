@@ -12,7 +12,7 @@
    PICTURE: de live staafbalk die toont wat betaald, vast en gekozen is
    COLOUR and TYPE: DNLS-stijl van de bestaande offerte, diep blauwgrijs + rood accent, Inter
    LAYOUT: keuzes links, vaste live begroting rechts; op mobiel een vaste totaalbalk onderin */
-:root{color-scheme:light;--bg:light-dark(#f5f6f6,#0f171d);--card:light-dark(#fff,#16212a);--ink:light-dark(#17242d,#e8eef1);--muted:light-dark(#5f707b,#9fb0ba);--line:light-dark(#dce3e6,#26343e);--accent:#e44332;--soft:light-dark(#fff3f1,#2a1d1d);--deep:#17232e;--ok:light-dark(#1f7a55,#5fd3a0)}
+:root{color-scheme:light;--bg:light-dark(#f5f6f6,#0f171d);--card:light-dark(#fff,#16212a);--ink:light-dark(#17242d,#e8eef1);--muted:light-dark(#5f707b,#9fb0ba);--line:light-dark(#dce3e6,#26343e);--accent:#e44332;--soft:light-dark(#fff3f1,#2a1d1d);--deep:#0f3566;--ok:light-dark(#1f7a55,#5fd3a0)}
 
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:clip}
@@ -70,25 +70,31 @@ p{margin:0 0 10px;color:var(--muted)}
 .notes b{color:var(--ink)}
 aside{position:sticky;top:18px}
 .sum{background:var(--deep);color:#fff;border-radius:14px;padding:22px}
-.sum .lbl{font-size:13px;color:#b9c5cd;margin:0}
+.sum .lbl{font-size:13px;color:rgba(255,255,255,.72);margin:0}
 .big{font-size:clamp(30px,3vw,38px);font-weight:800;letter-spacing:-1.2px;margin:2px 0 14px;white-space:nowrap}
 .bar{display:flex;height:18px;border-radius:6px;overflow:hidden;background:repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 6px,rgba(255,255,255,.03) 6px 12px)}
 .bar span{display:block;height:100%;transition:width .45s cubic-bezier(.2,.8,.2,1)}
-.b-paid{background:#fff}.b-base{background:#61737f}.b-ext{background:var(--accent)}
-.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin:10px 0 16px;font-size:12px;color:#b9c5cd}
+.b-base{background:#fff}.b-ext{background:var(--accent)}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin:10px 0 16px;font-size:12px;color:rgba(255,255,255,.72)}
 .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:0}
-.line{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #33424c;font-size:13.5px}
+.line{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.16);font-size:13.5px}
 .line b{white-space:nowrap}
 .line.rest{border:0;font-size:16px;font-weight:800;padding-top:12px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
 .chips span{font-size:12px;background:rgba(255,255,255,.1);border-radius:99px;padding:4px 10px}
-.chips em{font-style:normal;font-size:12.5px;color:#b9c5cd}
+.chips em{font-style:normal;font-size:12.5px;color:rgba(255,255,255,.72)}
+.pay{margin-top:16px;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.08);font-size:12.5px;color:rgba(255,255,255,.8)}
+.pay p{margin:0 0 6px;color:#fff;font-weight:700;font-size:12px}
+.pay div{display:flex;justify-content:space-between;gap:10px;padding:2px 0}.pay b{white-space:nowrap;font-weight:600;color:#fff}
+.doc{display:inline-flex;align-items:center;gap:7px;margin-top:12px;font-size:13px;font-weight:700;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:9px;padding:8px 12px;min-height:40px}
+.doc:hover{border-color:var(--accent)}
+.doc svg{width:15px;height:15px;flex:none}
 .side-actions{display:flex;flex-direction:column;gap:9px;margin-top:14px}
 .mbar{display:none}
 @media (prefers-reduced-motion:reduce){.bar span{transition:none}}
 @media(max-width:890px){.layout{grid-template-columns:1fr;padding-bottom:96px}aside{position:static}
  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--deep);color:#fff;padding:10px 16px calc(10px + env(safe-area-inset-bottom));gap:12px;align-items:center;justify-content:space-between;box-shadow:0 -6px 20px rgba(0,0,0,.18)}
- .mbar div{font-size:12px;color:#b9c5cd}.mbar strong{display:block;color:#fff;font-size:18px}}
+ .mbar div{font-size:12px;color:rgba(255,255,255,.72)}.mbar strong{display:block;color:#fff;font-size:18px}}
 @media(max-width:600px){.wrap,.mast{padding-left:16px;padding-right:16px}.must{grid-template-columns:1fr}.must div:nth-child(odd){border-right:0}
  .opt{grid-template-columns:24px minmax(0,1fr);padding:15px 16px}.amt{grid-column:2;text-align:left}.amt small{display:inline;margin-left:6px}
  .ptop{padding:18px 16px 14px}.form{grid-template-columns:1fr;padding:4px 16px 20px}.head{flex-direction:column;gap:4px}}
@@ -99,20 +105,20 @@ aside{position:sticky;top:18px}
 <header><div class="wrap mast">
  <div class="eyebrow">DNLS · Nieuw digitaal platform · Scopevoorstel 16 november 2026</div>
  <h1>Kies wat er meegaat in het nieuwe DNLS-platform</h1>
- <p class="sub">Het basispakket ligt vast. Vink hieronder aan welke uitbreidingen je wilt meenemen: het totaal en het restant na aanbetaling rekenen direct mee. Verstuur je keuze onderaan de pagina, dan komt die rechtstreeks bij ons binnen.</p>
+ <p class="sub">Het basispakket ligt vast. Vink hieronder aan welke uitbreidingen je wilt meenemen: het totaal rekent direct mee. Verstuur je keuze onderaan de pagina, dan komt die rechtstreeks bij ons binnen.</p>
 </div></header>
 
 <main class="wrap layout">
 <div>
  <section class="panel">
   <div class="ptop"><div class="head"><div><div class="step">Stap 1 · Vast</div><h2>Basispakket</h2></div><div class="price">€ 42.000</div></div>
-  <p>Eén gezamenlijke technische basis voor dnls.nl, dnls.be en locationagent.de. Deze negen onderdelen zijn inbegrepen.</p></div>
+  <p>Eén gezamenlijke technische basis voor dnls.nl, dnls.be en locationagent.de. Deze negen onderdelen zijn inbegrepen.</p><a class="doc" href="DNLS_Must_Haves_42000.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 1.5h5.5L13 5v9.5H4z"/><path d="M9.5 1.5V5H13M6.5 9h4M6.5 11.5h4"/></svg>Uitleg basispakket (PDF)</a></div>
   <div class="must" id="must"></div>
  </section>
 
  <section class="panel">
   <div class="ptop"><div class="head"><div><div class="step">Stap 2 · Naar keuze</div><h2>Uitbreidingen</h2></div><span class="pill" id="count">0 van 10 gekozen</span></div>
-  <p>Elke uitbreiding heeft een eigen oplevering en prijs. Kies wat nu mee moet in de bouw; de rest kan later alsnog.</p>
+  <p>Elke uitbreiding heeft een eigen oplevering en prijs. Kies wat nu mee moet in de bouw; de rest kan later alsnog.</p><a class="doc" href="DNLS_Nice_to_Haves_19700.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 1.5h5.5L13 5v9.5H4z"/><path d="M9.5 1.5V5H13M6.5 9h4M6.5 11.5h4"/></svg>Uitleg uitbreidingen (PDF)</a>
   <div class="tools"><button type="button" class="btn" id="all">Alles selecteren</button><button type="button" class="btn" id="none">Selectie wissen</button></div></div>
   <div id="opts"></div>
   <div class="foot"><span>Alle tien uitbreidingen samen</span><span>€ 19.700</span></div>
@@ -136,19 +142,19 @@ aside{position:sticky;top:18px}
  <div class="sum">
   <p class="lbl">Opdrachtwaarde, excl. btw</p>
   <div class="big" id="total">€ 42.000</div>
-  <div class="bar" aria-hidden="true"><span class="b-paid" id="bPaid"></span><span class="b-base" id="bBase"></span><span class="b-ext" id="bExt"></span></div>
-  <div class="legend"><span><i style="background:#fff"></i>Aanbetaling</span><span><i style="background:#61737f"></i>Basis, restant</span><span><i style="background:var(--accent)"></i>Gekozen extra's</span><span><i style="background:rgba(255,255,255,.18)"></i>Nog niet gekozen</span></div>
+  <div class="bar" aria-hidden="true"><span class="b-base" id="bBase"></span><span class="b-ext" id="bExt"></span></div>
+  <div class="legend"><span><i style="background:#fff"></i>Basispakket</span><span><i style="background:var(--accent)"></i>Gekozen uitbreidingen</span><span><i style="background:rgba(255,255,255,.18)"></i>Nog niet gekozen</span></div>
   <div class="line"><span>Basispakket</span><b>€ 42.000</b></div>
   <div class="line"><span id="extLbl">Uitbreidingen (0)</span><b id="ext">€ 0</b></div>
-  <div class="line"><span>Aanbetaling (30% van basis)</span><b>− € 12.600</b></div>
-  <div class="line rest"><span>Restant na aanbetaling</span><b id="rest">€ 29.400</b></div>
+  <div class="line rest"><span>Totaal, excl. btw</span><b id="total2">€ 42.000</b></div>
   <div class="chips" id="chips"></div>
+  <div class="pay"><p>Betaalverdeling van dit totaal</p><div><span>Aanbetaling, 30% van het basispakket</span><b>€ 12.600</b></div><div><span>Restant</span><b id="rest">€ 29.400</b></div></div>
  </div>
  <div class="side-actions"><a class="btn primary" href="#send" style="text-align:center;text-decoration:none">Naar versturen</a><button class="btn" type="button" id="print">Print of bewaar als PDF</button></div>
 </aside>
 </main>
 
-<div class="mbar"><div>Totaal · restant<strong id="mTot">€ 42.000 · € 29.400</strong></div><a class="btn primary" href="#send" style="text-decoration:none">Versturen</a></div>
+<div class="mbar"><div>Totaal, excl. btw<strong id="mTot">€ 42.000</strong></div><a class="btn primary" href="#send" style="text-decoration:none">Versturen</a></div>
 
 <script>
 {
@@ -197,9 +203,9 @@ function render(){
  const c=calc(),max=BASE+ALL;
  document.querySelectorAll('[data-id]').forEach(el=>{el.checked=sel.has(el.dataset.id);el.closest('.opt').classList.toggle('on',el.checked)});
  $('count').textContent=`${c.chosen.length} van ${opts.length} gekozen`;
- $('total').textContent=eur(c.total);$('ext').textContent=eur(c.ext);$('extLbl').textContent=`Uitbreidingen (${c.chosen.length})`;$('rest').textContent=eur(c.rest);
- $('mTot').textContent=`${eur(c.total)} · ${eur(c.rest)}`;
- $('bPaid').style.width=(PAID/max*100)+'%';$('bBase').style.width=((BASE-PAID)/max*100)+'%';$('bExt').style.width=(c.ext/max*100)+'%';
+ $('total').textContent=eur(c.total);$('ext').textContent=eur(c.ext);$('extLbl').textContent=`Uitbreidingen (${c.chosen.length})`;$('rest').textContent=eur(c.rest);$('total2').textContent=eur(c.total);
+ $('mTot').textContent=eur(c.total);
+ $('bBase').style.width=(BASE/max*100)+'%';$('bExt').style.width=(c.ext/max*100)+'%';
  const names=c.chosen.map(o=>`<span>${o.name}</span>`);
  $('chips').innerHTML=names.length?names.join(''):'<em>Alleen het basispakket. Vink links uitbreidingen aan.</em>';
  try{localStorage.setItem('dnls_keuze_v2',JSON.stringify({sel:[...sel],last}))}catch(e){}
@@ -219,7 +225,7 @@ function summary(name,note){
   `Gekozen uitbreidingen (${c.chosen.length} van ${opts.length}):`,
   ...(c.chosen.length?c.chosen.map(o=>`  - ${o.name}: ${eur(o.price)}`):['  - geen']),
   '',
-  `Opdrachtwaarde: ${eur(c.total)} excl. btw`,`Aanbetaling (30% van basis): ${eur(PAID)}`,`Restant na aanbetaling: ${eur(c.rest)}`,'',
+  `Opdrachtwaarde: ${eur(c.total)} excl. btw`,`Waarvan aanbetaling (30% van basis): ${eur(PAID)}`,`Restant: ${eur(c.rest)}`,'',
   `Opmerking: ${note||'geen'}`,`Link naar deze keuze: ${link()}`].join('\n');
 }
 function status(cls,html){const s=$('status');s.className='status show '+cls;s.innerHTML=html}
