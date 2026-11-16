@@ -111,21 +111,15 @@ aside{position:sticky;top:18px}
  </section>
 
  <section class="panel">
-  <div class="ptop"><div class="head"><div><div class="step">Stap 2 · Naar keuze</div><h2>Uitbreidingen</h2></div><span class="pill" id="count">0 van 9 gekozen</span></div>
+  <div class="ptop"><div class="head"><div><div class="step">Stap 2 · Naar keuze</div><h2>Uitbreidingen</h2></div><span class="pill" id="count">0 van 10 gekozen</span></div>
   <p>Elke uitbreiding heeft een eigen oplevering en prijs. Kies wat nu mee moet in de bouw; de rest kan later alsnog.</p>
   <div class="tools"><button type="button" class="btn" id="all">Alles selecteren</button><button type="button" class="btn" id="none">Selectie wissen</button></div></div>
   <div id="opts"></div>
-  <div class="foot"><span>Alle negen uitbreidingen samen</span><span>€ 18.700</span></div>
- </section>
-
- <section class="panel">
-  <div class="ptop"><div class="step">Stap 3 · Optioneel</div><h2>Nog niet begroot, wel interesse?</h2>
-  <p>Deze onderdelen zijn genoemd maar nog niet afgebakend. Aanvinken betekent: werk dit verder uit. Ze tellen niet mee in het totaal.</p></div>
-  <div id="extra"></div>
+  <div class="foot"><span>Alle tien uitbreidingen samen</span><span>€ 19.700</span></div>
  </section>
 
  <section class="panel" id="send">
-  <div class="ptop"><div class="step">Stap 4</div><h2>Keuze versturen</h2><p>Met één klik komt je selectie, inclusief bedragen, direct bij ons binnen. Je kunt later altijd een gewijzigde keuze sturen.</p></div>
+  <div class="ptop"><div class="step">Stap 3</div><h2>Keuze versturen</h2><p>Met één klik komt je selectie, inclusief bedragen, direct bij ons binnen. Je kunt later altijd een gewijzigde keuze sturen.</p></div>
   <form class="form" id="form" novalidate>
    <label class="full">Naam *<input id="name" autocomplete="name" required></label>
    <label class="full">Opmerking of vraag<textarea id="note" placeholder="Bijvoorbeeld: Minox graag in een tweede fase"></textarea></label>
@@ -163,7 +157,7 @@ aside{position:sticky;top:18px}
    (eindigt op /exec). Elke inzending wordt dan een nieuwe regel in die sheet. */
 const CONFIG={sheetUrl:'https://script.google.com/macros/s/AKfycbxiSidWRQFV070FZejsKWSSNNInmhUFGpAY03_9n_XzYue0Uuhwj37-4qQc6LrAkxYXAA/exec'};
 
-const BASE=42000,PAID=12600,ALL=18700;
+const BASE=42000,PAID=12600,ALL=19700;
 const must=[
  ['Design en webidentiteit','Twee conceptrichtingen, design foundation, kernpagina’s en twee Nederlandse doelgroeplandingspagina’s.'],
  ['Websites, zoeken en aanvragen','Drie responsive websites met locatieprofielen, filters en aanvragen via DNLS.'],
@@ -178,46 +172,41 @@ const opts=[
  {id:'foto',tag:'Bezoekers',name:'Zoeken op inspiratiefoto',price:2000,d:'Bezoekers uploaden een sfeerbeeld, bijvoorbeeld van Pinterest, en zien vergelijkbare DNLS-locaties.'},
  {id:'schrijf',tag:'CMS',name:'AI-schrijfhulp in het CMS',price:1000,d:'Teksten herschrijven, verkorten of verbeteren binnen het CMS; voorstellen eerst als concept.'},
  {id:'alt',tag:'CMS',name:'Automatische alt-teksten',price:2000,d:'AI stelt beschrijvende alt-teksten voor bij geüploade locatiefoto’s, die DNLS controleert.'},
+ {id:'vertaling',tag:'Internationaal',name:'Automatische vertalingen',price:1000,d:'Content automatisch vertalen, bijvoorbeeld via DeepL, voor dnls.be en locationagent.de.'},
  {id:'minox',tag:'Administratie',name:'Minox-boekhoudkoppeling',price:4500,d:'Klant- en factuurgegevens vanuit het CRM naar Minox, met controles en foutafhandeling.'},
  {id:'mail',tag:'Locaties',name:'Automatische resultatenmail',price:2500,d:'Locatie-eigenaren krijgen periodiek een mail met de aanvragen die hun vermelding opleverde.'},
  {id:'pinterest',tag:'Marketing',name:'Pinterest-publicatieflow',price:3000,d:'Goedgekeurde locatiefoto’s als pins voorbereiden en via een publicatietool inplannen.'},
  {id:'analytics',tag:'Marketing',name:'Verdiepende bezoekersanalyse',price:1500,d:'Inzicht in filtergebruik, locatiebezoeken en waar bezoekers afhaken in de aanvraagroute.'},
  {id:'social',tag:'Marketing',name:'Socialmedia-contentplan en templates',price:1000,d:'Contentpijlers, vier tot zes templates, hooks, captions en een voorbeeldmaandplanning.'},
  {id:'logo',tag:'Merk',name:'Vernieuwing bestaand logo',price:1200,d:'Het huidige logo verfijnen of vernieuwen zodat het aansluit op de nieuwe webidentiteit.'}];
-const extras=[
- {id:'zoekassistent',name:'Begeleide zoekassistent',d:'Stapsgewijze keuzevragen die bezoekers naar passende locaties leiden.'},
- {id:'vertaling',name:'Automatische vertalingen',d:'Content automatisch vertalen, bijvoorbeeld via DeepL, voor .be en .de.'}];
 
 const $=id=>document.getElementById(id);
 const eur=n=>'€ '+new Intl.NumberFormat('nl-NL').format(n);
-let sel=new Set(),int=new Set(),last=null;
+let sel=new Set(),last=null;
 
-try{const s=JSON.parse(localStorage.getItem('dnls_keuze_v2')||'null');if(s){sel=new Set(s.sel);int=new Set(s.int);last=s.last||null}}catch(e){}
-try{const q=new URLSearchParams(location.search);if(q.has('keuze')){sel=new Set(q.get('keuze').split(',').filter(x=>opts.some(o=>o.id===x)))}if(q.has('interesse')){int=new Set(q.get('interesse').split(',').filter(x=>extras.some(o=>o.id===x)))}}catch(e){}
+try{const s=JSON.parse(localStorage.getItem('dnls_keuze_v2')||'null');if(s){sel=new Set((s.sel||[]).filter(x=>opts.some(o=>o.id===x)));last=s.last||null}}catch(e){}
+try{const q=new URLSearchParams(location.search);if(q.has('keuze')){sel=new Set(q.get('keuze').split(',').filter(x=>opts.some(o=>o.id===x)))}}catch(e){}
 
 $('must').innerHTML=must.map(m=>`<div><h3>${m[0]}</h3><p>${m[1]}</p></div>`).join('');
 $('opts').innerHTML=opts.map(o=>`<label class="opt" id="row-${o.id}"><input type="checkbox" data-id="${o.id}"><span><span class="meta"><h3>${o.name}</h3><span class="tag">${o.tag}</span></span><p>${o.d}</p></span><span class="amt">${eur(o.price)}<small>excl. btw</small></span></label>`).join('');
-$('extra').innerHTML=extras.map(o=>`<label class="opt" id="row-${o.id}"><input type="checkbox" data-int="${o.id}"><span><h3>${o.name}</h3><p>${o.d}</p></span><span class="amt">Op aanvraag</span></label>`).join('');
 
 function calc(){const chosen=opts.filter(o=>sel.has(o.id));const ext=chosen.reduce((s,o)=>s+o.price,0);return{chosen,ext,total:BASE+ext,rest:BASE+ext-PAID}}
-function link(){const b=location.href.split('#')[0].split('?')[0],q=[];if(sel.size)q.push('keuze='+[...sel].join(','));if(int.size)q.push('interesse='+[...int].join(','));return b+(q.length?'?'+q.join('&'):'')}
+function link(){const b=location.href.split('#')[0].split('?')[0],q=[];if(sel.size)q.push('keuze='+[...sel].join(','));return b+(q.length?'?'+q.join('&'):'')}
 
 function render(){
  const c=calc(),max=BASE+ALL;
  document.querySelectorAll('[data-id]').forEach(el=>{el.checked=sel.has(el.dataset.id);el.closest('.opt').classList.toggle('on',el.checked)});
- document.querySelectorAll('[data-int]').forEach(el=>{el.checked=int.has(el.dataset.int);el.closest('.opt').classList.toggle('on',el.checked)});
- $('count').textContent=`${c.chosen.length} van 9 gekozen`;
+ $('count').textContent=`${c.chosen.length} van ${opts.length} gekozen`;
  $('total').textContent=eur(c.total);$('ext').textContent=eur(c.ext);$('extLbl').textContent=`Uitbreidingen (${c.chosen.length})`;$('rest').textContent=eur(c.rest);
  $('mTot').textContent=`${eur(c.total)} · ${eur(c.rest)}`;
  $('bPaid').style.width=(PAID/max*100)+'%';$('bBase').style.width=((BASE-PAID)/max*100)+'%';$('bExt').style.width=(c.ext/max*100)+'%';
- const names=c.chosen.map(o=>`<span>${o.name}</span>`).concat(extras.filter(x=>int.has(x.id)).map(x=>`<span>${x.name} (interesse)</span>`));
+ const names=c.chosen.map(o=>`<span>${o.name}</span>`);
  $('chips').innerHTML=names.length?names.join(''):'<em>Alleen het basispakket. Vink links uitbreidingen aan.</em>';
- try{localStorage.setItem('dnls_keuze_v2',JSON.stringify({sel:[...sel],int:[...int],last}))}catch(e){}
+ try{localStorage.setItem('dnls_keuze_v2',JSON.stringify({sel:[...sel],last}))}catch(e){}
  try{history.replaceState(null,'',link())}catch(e){}
 }
 
 $('opts').addEventListener('change',e=>{const id=e.target.dataset.id;if(!id)return;e.target.checked?sel.add(id):sel.delete(id);render()});
-$('extra').addEventListener('change',e=>{const id=e.target.dataset.int;if(!id)return;e.target.checked?int.add(id):int.delete(id);render()});
 $('all').onclick=()=>{sel=new Set(opts.map(o=>o.id));render()};
 $('none').onclick=()=>{sel=new Set();render()};
 const framed=(()=>{try{return window.self!==window.top}catch(e){return true}})();
@@ -227,9 +216,9 @@ function summary(name,note){
  const c=calc();
  return [`Keuze DNLS-platform van ${name}`,'',
   `Basispakket: ${eur(BASE)}`,
-  `Gekozen uitbreidingen (${c.chosen.length} van 9):`,
+  `Gekozen uitbreidingen (${c.chosen.length} van ${opts.length}):`,
   ...(c.chosen.length?c.chosen.map(o=>`  - ${o.name}: ${eur(o.price)}`):['  - geen']),
-  `Interesse, nog niet begroot: ${extras.filter(x=>int.has(x.id)).map(x=>x.name).join(', ')||'geen'}`,'',
+  '',
   `Opdrachtwaarde: ${eur(c.total)} excl. btw`,`Aanbetaling (30% van basis): ${eur(PAID)}`,`Restant na aanbetaling: ${eur(c.rest)}`,'',
   `Opmerking: ${note||'geen'}`,`Link naar deze keuze: ${link()}`].join('\n');
 }
@@ -254,7 +243,7 @@ $('form').addEventListener('submit',async e=>{
  try{
   const r=await fetch(CONFIG.sheetUrl,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({
    naam:name,gekozen:c.chosen.map(o=>`${o.name} (${eur(o.price)})`).join('; ')||'geen',aantal:c.chosen.length,
-   interesse:extras.filter(x=>int.has(x.id)).map(x=>x.name).join('; ')||'geen',
+   interesse:'n.v.t.',
    totaal:c.total,aanbetaling:PAID,restant:c.rest,opmerking:note,link:link()})});
   const j=await r.json().catch(()=>({}));
   if(!r.ok||!j.ok)throw new Error(r.status);
