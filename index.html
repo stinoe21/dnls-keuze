@@ -259,7 +259,7 @@ $('form').addEventListener('submit',async e=>{
   const j=await r.json().catch(()=>({}));
   if(!r.ok||!j.ok)throw new Error(r.status);
   last=new Date().toLocaleString('nl-NL',{dateStyle:'long',timeStyle:'short'});
-  status('ok',`<b>Bedankt, ${name.replace(/[<>&"]/g,'')}.</b> Je keuze is verstuurd op ${last}: ${c.chosen.length} uitbreidingen, opdrachtwaarde ${eur(c.total)}. We nemen contact op over de volgende stap.`);
+  status('ok',`<b>Bedankt, ${name.replace(/[<>&"]/g,'')}.</b> Je keuze is verstuurd op ${last}: ${c.chosen.length} ${c.chosen.length===1?'uitbreiding':'uitbreidingen'}, opdrachtwaarde ${eur(c.total)}. We nemen contact op over de volgende stap.`);
   render();
  }catch(err){fallback(text,'Versturen is niet gelukt.')}
  finally{btn.disabled=false;btn.textContent='Keuze versturen'}
